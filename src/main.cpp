@@ -1,0 +1,7 @@
+#include "Application.hpp"
+
+int main(int argc, char* argv[]) {
+    Application app(800, 600);
+
+    return 0;
+}
