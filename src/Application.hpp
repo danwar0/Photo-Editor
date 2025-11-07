@@ -18,14 +18,14 @@ public:
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-        GLFWwindow *window = glfwCreateWindow(screen_width, screen_height, "window title", NULL, NULL);
-        if(window == NULL) {
+        main_window = glfwCreateWindow(screen_width, screen_height, "window title", NULL, NULL);
+        if(main_window == NULL) {
             std::cout << "ERROR: failed to create window\n";
             glfwTerminate();
             return;
         }
     
-        glfwMakeContextCurrent(window);
+        glfwMakeContextCurrent(main_window);
 
         if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
             std::cout << "ERROR: failed to load OpenGL function pointers\n";
@@ -38,9 +38,9 @@ public:
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        ShaderProgram program("../src/shaders/roundedcorner/RoundedRect");
+        ShaderProgram program("../src/shaders/roundedrect/RoundedRect");
         if(!program.is_valid()) {
-            glfwDestroyWindow(window);
+            glfwDestroyWindow(main_window);
             glfwTerminate();
             return;
         }
@@ -100,13 +100,13 @@ public:
         glVertexAttribDivisor(2, 1);
         glVertexAttribDivisor(3, 1);
 
-        while(!glfwWindowShouldClose(window)) {
+        while(!glfwWindowShouldClose(main_window)) {
             glClear(GL_COLOR_BUFFER_BIT);
 
             glDrawArraysInstanced(GL_TRIANGLES, 0, 6, n_instances);
 
             glfwPollEvents();
-            glfwSwapBuffers(window);
+            glfwSwapBuffers(main_window);
         }
     }
 
@@ -116,7 +116,7 @@ public:
 
 private:
 
-    //static 
+    GLFWwindow *main_window = NULL;
 
 };
 
