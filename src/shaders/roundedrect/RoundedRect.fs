@@ -1,22 +1,19 @@
 #version 330 core
 
-in vec2 centre; 
-in vec2 scale;
-in float corner_radius;
-in vec2 pos_screenspace;
+in Data {
+    vec2 origin; // origin bottom left, x right, y up
+    vec2 scale;
+    float corner_radius;
+} data_in;
 
 float sdf(vec2 screen_pos) {
-    vec2 S = abs(scale * 0.5);
-    vec2 P = abs(screen_pos - centre);
-    vec2 R = S - corner_radius;
-    vec2 RP = P - R;
-
-    if(RP.x >= 0 && RP.y >= 0) return length(RP) - corner_radius; // corner area
-
-    return -1;
+    float x = clamp(screen_pos.x, data_in.origin.x + data_in.corner_radius, data_in.origin.x + data_in.scale.x - data_in.corner_radius);
+    float y = clamp(screen_pos.y, data_in.origin.y - data_in.scale.y + data_in.corner_radius, data_in.origin.y - data_in.corner_radius);
+    vec2 P = vec2(x, y);
+    return length(screen_pos - P) - data_in.corner_radius;
 }
 
 void main() {
-    float alpha = 1.0 - smoothstep(-1.0, 1.0, sdf(pos_screenspace));
-    gl_FragColor = vec4(1,0,0,alpha);
+    float alpha = 1.0 - smoothstep(-1.0, 1.0, sdf(gl_FragCoord.xy));
+    gl_FragColor = vec4(0.4,0.4,0.4,alpha);
 }

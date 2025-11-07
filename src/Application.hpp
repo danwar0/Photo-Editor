@@ -34,7 +34,8 @@ public:
         }
 
         glViewport(0, 0, screen_width, screen_height);
-        glClearColor(0,0,1.0f,1.0f);
+        glClearColor(0.8f, 0.8f, 0.8f, 1.0f);
+
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -71,19 +72,19 @@ public:
         glEnableVertexAttribArray(0);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         
-        const int n_instances = 20;
+        const int n_instances = 1;
         float instance_data[n_instances*5];
 
         for(int i = 0; i < n_instances; i++) {
-            instance_data[i*5] = rand() % screen_width;
-            instance_data[i*5+1] = rand() % screen_height;
-            float w = rand() % 200;
-            float h = rand() % 200;
+            instance_data[i*5] = 100; //rand() % screen_width;
+            instance_data[i*5+1] = 100; //rand() % screen_height;
+            float w = 500; //rand() % 200;
+            float h = 300; //rand() % 200;
             instance_data[i*5+2] = w;
             instance_data[i*5+3] = h;
             float min_size = w < h ? w : h;
             float max_radius = min_size * 0.4f;
-            instance_data[i*5+4] = rand() % (int)max_radius;
+            instance_data[i*5+4] = 20; //rand() % (int)max_radius;
         }
         
         unsigned int instance_vbo;
