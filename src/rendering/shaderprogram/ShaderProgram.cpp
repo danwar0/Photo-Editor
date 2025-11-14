@@ -7,6 +7,11 @@
 #define INFO_LOG_BUFFER_SIZE 512
 
 unsigned int load_shader(const std::string& shader_filepath, GLenum shader_type) {
+    #ifdef SHADER_DEBUG
+    std::cout << "MESSAGE: loading shader: \"" << shader_filepath << "\"...\n";
+    std::cout << "MESSAGE: opening shader file: \"" << shader_filepath << "\"...\n";
+    #endif
+
     std::ifstream filestream(shader_filepath, std::ios::binary);
     if(!filestream) { std::cout << "ERROR: failed to open shader file: \"" << shader_filepath << "\"\n"; return 0; }
 
@@ -15,11 +20,29 @@ unsigned int load_shader(const std::string& shader_filepath, GLenum shader_type)
 
     filestream.close();
 
+    #ifdef SHADER_DEBUG
+    std::cout << "MESSAGE: succesfully loaded shader file: \"" << shader_filepath << "\"" << " into c style string\n";
+    std::cout << "MESSAGE: creating shader object...\n";
+    #endif
+
     unsigned int shader_object = glCreateShader(shader_type);
     if(shader_object == 0) { std::cout << "ERROR: failed to load shader: \"" << shader_filepath << "\" -> OpenGL failed to create shader object\n"; return 0; }
 
+    #ifdef SHADER_DEBUG
+    std::cout << "MESSAGE: setting shader source...\n";
+    #endif
+
     glShaderSource(shader_object, 1, &shader_c_string, NULL);
+
+    #ifdef SHADER_DEBUG
+    std::cout << "MESSAGE: compiling shader...\n";
+    #endif
+
     glCompileShader(shader_object);
+
+    #ifdef SHADER_DEBUG
+    std::cout << "MESSAGE: checking shader compilation success...\n";
+    #endif
 
     int success;
     glGetShaderiv(shader_object, GL_COMPILE_STATUS, &success);
@@ -30,6 +53,10 @@ unsigned int load_shader(const std::string& shader_filepath, GLenum shader_type)
         glDeleteShader(shader_object);
         return 0;
     }
+
+    #ifdef SHADER_DEBUG
+    std::cout << "MESSAGE: successfully loaded and compiled shader: \"" << shader_filepath << "\"\n";
+    #endif
 
     return shader_object;
 }

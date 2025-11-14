@@ -26,6 +26,7 @@ public:
     unsigned int get_id() const;
 
     void set_uniform_int(const std::string& uniform_name, int value);
+    void set_uniform_vec2(const std::string& uniform_name, float v0, float v1);
 
 private:
 
