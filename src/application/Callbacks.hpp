@@ -11,8 +11,6 @@ static void framebuffer_size_callback(GLFWwindow *window, int width, int height)
     Application* app = static_cast<Application*>(glfwGetWindowUserPointer(window));
     app->screenwidth = width;
     app->screenheight = height;
-    app->renderer->screenwidth = width;
-    app->renderer->screenheight = height;
     glViewport(0, 0, width, height);
 }
 

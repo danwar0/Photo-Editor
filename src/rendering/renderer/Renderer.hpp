@@ -6,21 +6,20 @@
 #include <iostream>
 #include <filesystem>
 
-#include "shaderprogram/ShaderProgram.hpp"
-#include "../ui/renderlist/RenderList.hpp"
+#include "../../application/Application.hpp"
+#include "../shaderprogram/ShaderProgram.hpp"
+#include "../../ui/renderlist/RenderList.hpp"
+
+class Application;
 
 class Renderer {
 public:
 
-    Renderer();
+    Renderer(const Application& app);
 
     ~Renderer();
 
-    void render_ui(const UI::RenderList& render_list);
-
-public:
-
-    int screenwidth, screenheight;
+    void render_ui(UI::Element *root);
 
 private:
 
@@ -29,6 +28,10 @@ private:
     void init_image();
 
 private:
+
+    const Application& app;
+
+    UI::RenderList render_list;
 
     ShaderProgram shape_program;
     unsigned int shape_vao = 0;

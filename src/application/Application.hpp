@@ -7,7 +7,9 @@
 #include <iostream>
 
 #include "../ui/UI.hpp"
-#include "../rendering/Renderer.hpp"
+#include "../rendering/renderer/Renderer.hpp"
+
+class Renderer;
 
 class Application {
 public:

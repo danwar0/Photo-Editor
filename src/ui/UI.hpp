@@ -2,6 +2,7 @@
 #define UI_HPP
 
 #include "containers/HBox.hpp"
+#include "containers/VBox.hpp"
 
 #include "components/Button.hpp"
 #include "components/Histogram.hpp"

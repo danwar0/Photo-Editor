@@ -17,5 +17,5 @@ float sdf_rectangle() {
 void main() {
     float distance = length(gl_FragCoord.xy - data_in.corner);
     float v = distance / 800.0;
-    gl_FragColor = vec4(0,0,v,1);
+    gl_FragColor = vec4(v,v,v,1);
 }

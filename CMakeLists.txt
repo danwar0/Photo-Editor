@@ -9,7 +9,9 @@ target_sources(${PROJECT_NAME} PRIVATE
     ./src/main.cpp 
     ./src/misc/glad.c 
     ./src/application/Application.cpp 
-    ./src/rendering/Renderer.cpp
+    ./src/rendering/renderer/Renderer.cpp
+    ./src/rendering/renderer/RendererInit.cpp
+    ./src/rendering/renderer/RendererUI.cpp
     ./src/rendering/shaderprogram/ShaderProgram.cpp 
     ./src/rendering/shaderprogram/UniformSetters.cpp 
 )

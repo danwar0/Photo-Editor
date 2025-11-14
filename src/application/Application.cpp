@@ -37,39 +37,30 @@ Application::Application(int initial_screenwidth, int initial_screenheight) : sc
         return;
     }
 
-    renderer = new Renderer();
+    renderer = new Renderer(*this);
     if(renderer == nullptr) {
         std::cout << "ERROR: failed to create renderer\n";
         glfwDestroyWindow(window);
         glfwTerminate();
         return;
     }
-    renderer->screenwidth = screenwidth;
-    renderer->screenheight = screenheight;
 
     glViewport(0, 0, initial_screenwidth, initial_screenheight);
     glClearColor(1, 0, 0, 1);
 
     UI::HBox* root = new UI::HBox;
     root->add_child(new UI::HBox, 2.0f);
-    root->add_child(new UI::HBox);
 
-    UI::RenderList render_list;
+    UI::VBox *right_side = new UI::VBox;
+    right_side->add_child(new UI::VBox);
+    right_side->add_child(new UI::VBox, 3.0f);
+
+    root->add_child(right_side);
 
     while(!glfwWindowShouldClose(window)) {
         glClear(GL_COLOR_BUFFER_BIT);
 
-        render_list.clear();
-
-        root->x = 0;
-        root->y = 0;
-        root->width = screenwidth;
-        root->height = screenheight;
-
-        root->layout();
-        root->render_init(render_list);
-
-        renderer->render_ui(render_list);
+        renderer->render_ui(root);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
