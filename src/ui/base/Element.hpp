@@ -47,7 +47,7 @@ protected:
     float x = 0, y = 0;
     float width = 0, height = 0;
 
-    float background_colour[4] = {0};
+    float background_colour[4] = {0, 0, 0, 0}; // transparent by default
 
 };
 

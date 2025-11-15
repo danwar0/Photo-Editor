@@ -13,6 +13,13 @@ public:
 
     HBox() {}
 
+    HBox(float r, float g, float b, float a) {
+        background_colour[0] = r;
+        background_colour[1] = g;
+        background_colour[2] = b;
+        background_colour[3] = a;
+    }
+
     ~HBox() {}
 
     bool layout() override {

@@ -1,21 +1,21 @@
 #version 330 core
 
-in Data {
-    vec2 corner; // screen-space coordinates with origin at bottom-left
-    float radius;
-    vec4 colour;    
-} data_in;
+in vec2 corner; // screen-space coordinates with origin at bottom-left
+in vec2 size;
+in float radius;
+in vec4 colour;    
 
 float sdf_circle() {
     return 0;
 }
 
-float sdf_rectangle() {
-    return 0;
+float sdf_rectangle(vec2 pos) {
+    float x = clamp(pos.x, corner.x + radius, corner.x + size.x - radius);
+    float y = clamp(pos.y, corner.y - size.y + radius, corner.y - radius);
+    return length(pos - vec2(x, y)) - radius;
 }
 
 void main() {
-    float distance = length(gl_FragCoord.xy - data_in.corner);
-    float v = distance / 800.0;
-    gl_FragColor = vec4(v,v,v,1);
+    float t = 1.0 - smoothstep(-1.0, 1.0, sdf_rectangle(gl_FragCoord.xy));
+    gl_FragColor = mix(vec4(0,0,0,0), colour, t);
 }

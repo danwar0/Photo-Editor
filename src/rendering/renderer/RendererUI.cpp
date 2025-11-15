@@ -28,6 +28,14 @@ void Renderer::render_ui(UI::Element *root) {
         glVertexAttribDivisor(2, 1);
         glEnableVertexAttribArray(2);
 
+        glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, sizeof(UI::Shape), (void*)(offsetof(UI::Shape, radius)));
+        glVertexAttribDivisor(3, 1);
+        glEnableVertexAttribArray(3);
+
+        glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(UI::Shape), (void*)(offsetof(UI::Shape, background_colour)));
+        glVertexAttribDivisor(4, 1);
+        glEnableVertexAttribArray(4);
+
         glBindBuffer(GL_ARRAY_BUFFER, 0);
 
         glDrawArraysInstanced(GL_TRIANGLES, 0, 6, render_list.shapes.size());
@@ -38,5 +46,7 @@ void Renderer::render_ui(UI::Element *root) {
     // text
 
     // image
+
+    // menu bar
 
 }
